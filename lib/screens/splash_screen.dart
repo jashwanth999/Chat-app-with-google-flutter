@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
       alignment: Alignment.center,
       height: double.infinity,
       width: double.infinity,
-      color: Colors.deepOrange,
+      color: Colors.deepOrangeAccent,
       child: Text(
         "Destiny",
         style: TextStyle(

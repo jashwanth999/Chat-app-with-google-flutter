@@ -39,8 +39,8 @@ class _MessageScreenState extends State<MessageScreen> {
   // send message function
 
   Future<void> sendMessage() async {
-    scrollDown();
-    fieldText.clear();
+    if (message == "") return;
+
     var data = {
       'message': message,
       'messager_user_id': user!.uid,
@@ -49,14 +49,14 @@ class _MessageScreenState extends State<MessageScreen> {
     };
 
     try {
-      await ref
+      ref
           .doc(user!.uid)
           .collection("chat_users")
           .doc(widget.target_userid)
           .collection("all_messages")
           .add(data);
 
-      await ref
+      ref
           .doc(widget.target_userid)
           .collection("chat_users")
           .doc(user!.uid)
@@ -65,6 +65,9 @@ class _MessageScreenState extends State<MessageScreen> {
     } catch (e) {
       print(e);
     }
+    scrollDown();
+    fieldText.clear();
+    message = "";
   }
 
   ScrollController _scrollController = ScrollController(initialScrollOffset: 0);
@@ -86,7 +89,7 @@ class _MessageScreenState extends State<MessageScreen> {
     return Scaffold(
         backgroundColor: Color.fromRGBO(23, 32, 42, 1),
         appBar: AppBar(
-          backgroundColor: Colors.deepOrange,
+          backgroundColor: Colors.deepOrangeAccent,
           title: Row(
             children: [
               Container(
@@ -96,7 +99,7 @@ class _MessageScreenState extends State<MessageScreen> {
                         NetworkImage("${widget.target_profilepic}"),
                   )),
               Text(
-                widget.target_username,
+                widget.target_username.split(" ")[0],
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
@@ -195,7 +198,7 @@ Widget messages_lists(
                           color: snapshot.data!.docs[index]['messager_user_id'] !=
                                   user!.uid
                               ? Colors.white
-                              : Colors.deepOrange,
+                              : Colors.deepOrangeAccent,
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(10),
                               bottomRight: Radius.circular(10),
@@ -213,7 +216,6 @@ Widget messages_lists(
                           softWrap: true,
                           style: TextStyle(
                               fontSize: 18,
-                              fontWeight: FontWeight.w500,
                               color: snapshot.data!.docs[index]
                                           ['messager_user_id'] ==
                                       user!.uid

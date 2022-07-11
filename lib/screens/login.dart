@@ -69,7 +69,11 @@ class _LoginState extends State<Login> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    Spacer(flex: 1),
+                    Spacer(flex: 1),
+                    Spacer(flex: 1),
                     sigin_button(signIn, provider, context),
+                    Spacer(flex: 1),
                   ],
                 ),
               );
@@ -77,17 +81,17 @@ class _LoginState extends State<Login> {
   }
 
   Widget sigin_button(signIn, provider, context) {
-    double width = MediaQuery.of(context).size.width / 1.5;
+    double width = MediaQuery.of(context).size.width / 1.3;
     return GestureDetector(
         onTap: () async {
           provider.googleLogin(context);
         },
         child: Container(
-            height: 60,
+            height: 58,
             width: width,
             margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.deepOrange,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(30.0),
             ),
             child: Row(
@@ -104,10 +108,7 @@ class _LoginState extends State<Login> {
                 ),
                 Text(
                   "Sign in with Google",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                  style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
               ],
             )));
